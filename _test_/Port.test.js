@@ -1,9 +1,8 @@
 //const Ship = require("../src/cruise-ships");
-const Port = require("../src/cruise-ships");
+const Port = require("../src/Port");
 
 describe("constructor", () => {
     let port;
-    let ship;
     beforeEach(()=> {
         port = new Port("Dover");
     });

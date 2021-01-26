@@ -1,7 +1,7 @@
 class Itinerary {
-    constructor() {
-        
-    };
-
+    constructor(ports) {
+        this.ports = ports
+    }
+};
 
 module.exports = Itinerary;
