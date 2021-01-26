@@ -1,8 +1,29 @@
-const Ship = require("../src/cruise-ships");
+const Ship = require("../src/Ship");
 const Port = require("../src/Port");
 const Itinerary = require("../src/Itinerary");
 
 describe("constructor", () => {
+    let port;
+    let itinerary;
+    let ship;
+    beforeEach(()=> {
+        port = new Port("Dover");
+        itinerary = new Itinerary([port]);
+        ship = new Ship(itinerary);
+    });
+
+    describe("Ship", () => {
+        it("can be instantiated", () => {
+            expect(ship).toBeInstanceOf(Object);
+        });
+
+        it("has a starting port", () => {
+            expect(ship.currentPort).toBe(port);
+        });
+    });
+});
+
+describe("Ship", () => {
     let dover;
     let calais;
     let itinerary;
@@ -15,29 +36,19 @@ describe("constructor", () => {
     });
 
     describe("Ship", () => {
-        it("can be instantiated", () => {
-            expect(ship).toBeInstanceOf(Object);
-        });
-
-        it("has a starting port", () => {
-            const port = new Port('Dover');
-            const itinerary = new Itinerary([port]);
-            const ship = new Ship(itinerary);
-
-            expect(ship.currentPort).toBe(port);
-        });
-
         it("can set sail", () => {
             ship.setSail();
 
             expect(ship.currentPort).toBeFalsy();
+            expect(dover.ships).not.toContain(ship);
         });
 
         it("can dock at different port", () => {
             ship.setSail();
             ship.dock();
 
-           expect(ship.currentPort).toBe(calais)
+           expect(ship.currentPort).toBe(calais);
+           expect(calais.ships).toContain(ship);
         });
 
         it("can't sail further than its itinerary", () => {
@@ -45,6 +56,10 @@ describe("constructor", () => {
             ship.dock();
           
             expect(() => ship.setSail()).toThrowError("End of itinerary reached");
-          });
+        });
+
+        it('gets added to port on instantiation', () => {
+            expect(dover.ships).toContain(ship);
+        });
     });
 });
