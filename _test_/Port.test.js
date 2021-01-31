@@ -1,4 +1,3 @@
-//const Ship = require("../src/Ship");
 const Port = require("../src/Port");
 
 describe("constructor", () => {

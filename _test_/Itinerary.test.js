@@ -1,15 +1,14 @@
 const Itinerary = require("../src/Itinerary");
-const Port = require("../src/Port");
 
 describe("constructor", () => {
     let dover;
     let calais;
-    let itinerary;
-    beforeEach(()=> {
-        dover = new Port(jest.fn());
-        calais = new Port(jest.fn());
+
+    beforeEach(() => {
+        dover = jest.fn();
+        calais = jest.fn();
         itinerary = new Itinerary([dover, calais]);
-    });
+    }); 
 
     describe("Itinerary", () => {
         it("can be instantiated", () => {

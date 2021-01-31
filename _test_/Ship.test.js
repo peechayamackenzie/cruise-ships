@@ -1,38 +1,38 @@
 const Ship = require("../src/Ship");
-const Port = require("../src/Port");
-const Itinerary = require("../src/Itinerary");
 
-describe("constructor", () => {
-    let port;
-    let itinerary;
-    let ship;
-    beforeEach(()=> {
-        port = new Port(jest.fn());
-        itinerary = new Itinerary([port]);
-        ship = new Ship(itinerary);
+describe("Ship", () => {
+    let dover;
+    let calais;
+
+    beforeEach(() => {
+        dover = {
+            addShip: jest.fn(),
+            removeShip: jest.fn(),
+            name: 'Dover',
+            ships: []
+        };
+        calais = {
+            addShip: jest.fn(),
+            removeShip: jest.fn(),
+            name: 'Calais',
+            ships: []
+        };
+
+    itinerary = {
+        ports: [dover, calais]
+    };
+
+    ship = new Ship(itinerary);
     });
 
-    describe("Ship", () => {
+    describe("Constructor", () => {
         it("can be instantiated", () => {
             expect(ship).toBeInstanceOf(Object);
         });
 
         it("has a starting port", () => {
-            expect(ship.currentPort).toBe(port);
+            expect(ship.currentPort).toBe(dover);
         });
-    });
-});
-
-describe("Ship", () => {
-    let dover;
-    let calais;
-    let itinerary;
-    let ship;
-    beforeEach(()=> {
-        dover = new Port(jest.fn());
-        calais = new Port(jest.fn());
-        itinerary = new Itinerary([dover, calais]);
-        ship = new Ship(itinerary);
     });
 
     describe("Ship", () => {
@@ -40,7 +40,7 @@ describe("Ship", () => {
             ship.setSail();
 
             expect(ship.currentPort).toBeFalsy();
-            expect(dover.ships).not.toContain(ship);
+            expect(dover.removeShip).toHaveBeenCalledWith(ship);
         });
 
         it("can dock at different port", () => {
@@ -48,7 +48,7 @@ describe("Ship", () => {
             ship.dock();
 
            expect(ship.currentPort).toBe(calais);
-           expect(calais.ships).toContain(ship);
+           expect(calais.addShip).toHaveBeenCalled();
         });
 
         it("can't sail further than its itinerary", () => {
@@ -59,7 +59,7 @@ describe("Ship", () => {
         });
 
         it('gets added to port on instantiation', () => {
-            expect(dover.ships).toContain(ship);
+            expect(dover.addShip).toHaveBeenCalledWith(ship);
         });
     });
 });
