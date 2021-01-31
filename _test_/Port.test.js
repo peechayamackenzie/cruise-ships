@@ -5,8 +5,8 @@ describe("constructor", () => {
     let port;
     let ship;
     beforeEach(()=> {
-        port = new Port("Dover");
-        ship = {}
+        port = new Port(jest.fn());
+        ship = jest.fn();
     });
 
     describe("Port", () => {
@@ -21,8 +21,8 @@ describe("constructor", () => {
         });
 
         it("can remove a ship", () => {
-            const titanic = {};
-            const queenMary = {};
+            const titanic = jest.fn();
+            const queenMary = jest.fn();
             
             port.addShip(titanic);
             port.addShip(queenMary);

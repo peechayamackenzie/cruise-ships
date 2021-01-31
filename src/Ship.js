@@ -16,7 +16,6 @@ class Ship {
         this.previousPort = this.currentPort;
         this.currentPort.removeShip(this); 
         this.currentPort = null;
-        
     };
     dock() {
         const itinerary = this.itinerary;

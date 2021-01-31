@@ -7,7 +7,7 @@ describe("constructor", () => {
     let itinerary;
     let ship;
     beforeEach(()=> {
-        port = new Port("Dover");
+        port = new Port(jest.fn());
         itinerary = new Itinerary([port]);
         ship = new Ship(itinerary);
     });
@@ -29,8 +29,8 @@ describe("Ship", () => {
     let itinerary;
     let ship;
     beforeEach(()=> {
-        dover = new Port('Dover');
-        calais = new Port('Calais');
+        dover = new Port(jest.fn());
+        calais = new Port(jest.fn());
         itinerary = new Itinerary([dover, calais]);
         ship = new Ship(itinerary);
     });
